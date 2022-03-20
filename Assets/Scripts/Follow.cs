@@ -26,6 +26,7 @@ public class Follow : MonoBehaviour
         if (mesafa<5 )
         {
             animator.SetBool("Attack2", true);
+            
         }
         else
         {
@@ -38,7 +39,9 @@ public class Follow : MonoBehaviour
     {
         if (other.gameObject.CompareTag("Player"))
         {
-            Destroy(this.gameObject);
+            //Destroy(this.gameObject);
+            other.gameObject.SetActive(false);
+            Debug.Log("vurdu");
         }
     }
 
