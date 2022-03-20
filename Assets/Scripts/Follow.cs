@@ -6,52 +6,41 @@ using UnityEngine.AI;
 public class Follow : MonoBehaviour
 {
     private NavMeshAgent agent;
-
-
-    [SerializeField] private GameObject Mine;
-    [SerializeField] private GameObject hero;
-    [SerializeField] private GameObject runner;
-    [SerializeField] private GameObject goldstatic;
-    private GameObject emtyp;
-
+    private Animator animator;
+   [SerializeField] private GameObject target;
+    private float mesafa;
 
     private void Awake()
     {
         agent = GetComponent<NavMeshAgent>();
-
-    }
-    private void Start()
-    {
-        emtyp = Mine.transform.GetChild(0).gameObject;
+        animator = GetComponent<Animator>();
+      //  target = GameObject.Find("Player");
     }
 
     private void Update()
     {
-            agent.destination = emtyp.transform.position;
+
+        agent.destination = target.transform.position;
+        mesafa = Vector3.Distance(this.transform.position, target.transform.position);
+
+        if (mesafa<5 )
+        {
+            animator.SetBool("Attack2", true);
+        }
+        else
+        {
+            animator.SetBool("Attack2", false);
+        }
+
     }
 
     private void OnTriggerEnter(Collider other)
     {
-        if (other.gameObject.CompareTag("Gold"))
+        if (other.gameObject.CompareTag("Player"))
         {
-            emtyp = runner;
-            Destroy(other.gameObject, 1f);
-        }
-        if (other.gameObject.CompareTag("runner"))
-        {
-            goldstatic.gameObject.transform.localScale = 1.2f * goldstatic.gameObject.transform.localScale;
-
-
-            if (Mine.transform.childCount>0)
-            {
-                emtyp = Mine.transform.GetChild(0).gameObject;
-            }
-            else
-            {
-                Debug.Log("Gold kalmadý");
-                Time.timeScale = 0;
-            }
-            
+            Destroy(this.gameObject);
         }
     }
+
+
 }

@@ -111,7 +111,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b575953211835684dbbba12a218bce9c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  go: {fileID: 0}
+  Mine: {fileID: 8429040976761391, guid: 845d358800c8f834da2b8fb6698a84c4, type: 3}
+  hero: {fileID: 3007662649739402716, guid: 6f953ac2ca02fbf49838e5f2cf2fbebb, type: 3}
+  runner: {fileID: 8240079829150997852, guid: 2689f36b74ccc1b4d93f9e10cd1c9afe, type: 3}
+  goldstatic: {fileID: 1362930901975091917, guid: cd614f6605f223844b1e9169ddad930d, type: 3}
+  spawn: {fileID: 6950332970227820043, guid: e83a380b78f614d4c9f4a986853d66ef, type: 3}
 --- !u!54 &722394283657733000
 Rigidbody:
   m_ObjectHideFlags: 0
