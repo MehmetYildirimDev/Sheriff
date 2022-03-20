@@ -25,23 +25,23 @@ public class Follow : MonoBehaviour
 
         if (mesafa<5 )
         {
-            animator.SetBool("Attack2", true);
+            animator.SetBool("Attack1", true);
             
         }
         else
         {
-            animator.SetBool("Attack2", false);
+            animator.Play("runanim");
+            animator.SetBool("Attack1", false);
         }
 
     }
 
-    private void OnTriggerEnter(Collider other)
+    private void OnCollisionEnter(Collision collision)
     {
-        if (other.gameObject.CompareTag("Player"))
+        if (collision.gameObject.CompareTag("Player"))
         {
             //Destroy(this.gameObject);
-            other.gameObject.SetActive(false);
-            Debug.Log("vurdu");
+            Debug.Log("HASAR AL");
         }
     }
 
