@@ -2,19 +2,21 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.AI;
+using UnityEngine.UI;
 
 public class Follow : MonoBehaviour
 {
     private NavMeshAgent agent;
     private Animator animator;
-   [SerializeField] private GameObject target;
+    [SerializeField] private GameObject target;
     private float mesafa;
+
 
     private void Awake()
     {
         agent = GetComponent<NavMeshAgent>();
         animator = GetComponent<Animator>();
-      //  target = GameObject.Find("Player");
+        //  target = GameObject.Find("Player");
     }
 
     private void Update()
@@ -23,13 +25,14 @@ public class Follow : MonoBehaviour
         agent.destination = target.transform.position;
         mesafa = Vector3.Distance(this.transform.position, target.transform.position);
 
-        if (mesafa<5 )
+        if (mesafa < 5)
         {
             animator.SetBool("Attack1", true);
-            
+
         }
         else
         {
+
             animator.Play("runanim");
             animator.SetBool("Attack1", false);
         }
@@ -42,6 +45,7 @@ public class Follow : MonoBehaviour
         {
             //Destroy(this.gameObject);
             Debug.Log("HASAR AL");
+            //   collision.gameObject.transform.GetChild(0).GetComponent<Camera>().
         }
     }
 
