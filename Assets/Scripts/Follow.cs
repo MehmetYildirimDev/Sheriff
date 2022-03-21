@@ -11,6 +11,9 @@ public class Follow : MonoBehaviour
     [SerializeField] private GameObject target;
     private float mesafa;
 
+    public float Healt = 50f;
+
+    public bool dead;
 
     private void Awake()
     {
@@ -21,16 +24,18 @@ public class Follow : MonoBehaviour
 
     private void Update()
     {
-
-        agent.destination = target.transform.position;
+        if (!dead)
+        {
+            agent.destination = target.transform.position;
+        }
         mesafa = Vector3.Distance(this.transform.position, target.transform.position);
 
-        if (mesafa < 5)
+        if (mesafa < 5 && !dead)
         {
             animator.SetBool("Attack1", true);
 
         }
-        else
+        else if (mesafa>5 && !dead)
         {
 
             animator.Play("runanim");
@@ -49,5 +54,20 @@ public class Follow : MonoBehaviour
         }
     }
 
+    public void DamageTake(float amount)
+    {
+        Healt -= amount;
+        if (Healt<=0f)
+        {
+            
+            dead = true;
+            animator.Play("Daed");
+            Die();
+        }
+    }
 
+    public void Die()
+    {
+        Destroy(this.gameObject, 10f);
+    }
 }
