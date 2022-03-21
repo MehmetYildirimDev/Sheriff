@@ -15,6 +15,8 @@ public class Follow : MonoBehaviour
 
     public bool dead;
 
+    
+
     private void Awake()
     {
         agent = GetComponent<NavMeshAgent>();
