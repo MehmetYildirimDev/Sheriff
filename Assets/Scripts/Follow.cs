@@ -8,6 +8,7 @@ public class Follow : MonoBehaviour
 {
     private NavMeshAgent agent;
     private Animator animator;
+    private Rigidbody rigidbody;
     [SerializeField] private GameObject target;
     private float mesafa;
 
@@ -21,6 +22,7 @@ public class Follow : MonoBehaviour
     {
         agent = GetComponent<NavMeshAgent>();
         animator = GetComponent<Animator>();
+        rigidbody = GetComponent<Rigidbody>();
         //  target = GameObject.Find("Player");
     }
 
@@ -64,6 +66,8 @@ public class Follow : MonoBehaviour
             
             dead = true;
             animator.Play("Daed");
+            this.gameObject.isStatic = true;
+            rigidbody.constraints = RigidbodyConstraints.FreezeAll;
             Die();
         }
     }

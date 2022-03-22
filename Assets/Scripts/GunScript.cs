@@ -6,6 +6,8 @@ public class GunScript : MonoBehaviour
     public float range = 100f;
     public float fireRate = 15f;
 
+    public Animator animator;
+
     public Camera FpsCamera;
 
     public ParticleSystem muzzleFLash;
@@ -16,18 +18,19 @@ public class GunScript : MonoBehaviour
     private float nextTimetoFire = 0f;
     void Update()
     {
+      
 
         if (Input.GetButton("Fire1") && Time.time >=nextTimetoFire)
         {
             nextTimetoFire = Time.time + 1f / fireRate;
             Shoot();
         }
-
     }
 
     void Shoot()
     {
         muzzleFLash.Play();
+
         RaycastHit hit;
         
         if (Physics.Raycast(FpsCamera.transform.position, FpsCamera.transform.forward, out hit, range))
