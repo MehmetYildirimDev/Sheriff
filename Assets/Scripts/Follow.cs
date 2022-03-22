@@ -6,6 +6,8 @@ using UnityEngine.UI;
 
 public class Follow : MonoBehaviour
 {
+    private PlayerMovement playerScript;
+
     private NavMeshAgent agent;
     private Animator animator;
     private Rigidbody rigidbody;
@@ -20,6 +22,8 @@ public class Follow : MonoBehaviour
 
     private void Awake()
     {
+        target = GameObject.Find("Hero");
+
         agent = GetComponent<NavMeshAgent>();
         animator = GetComponent<Animator>();
         rigidbody = GetComponent<Rigidbody>();
@@ -36,14 +40,14 @@ public class Follow : MonoBehaviour
 
         if (mesafa < 5 && !dead)
         {
-            animator.SetBool("Attack1", true);
+            animator.SetBool("Attack2", true);
 
         }
         else if (mesafa>5 && !dead)
         {
 
             animator.Play("runanim");
-            animator.SetBool("Attack1", false);
+            animator.SetBool("Attack2", false);
         }
 
     }
@@ -63,17 +67,17 @@ public class Follow : MonoBehaviour
         Healt -= amount;
         if (Healt<=0f)
         {
-            
-            dead = true;
-            animator.Play("Daed");
-            this.gameObject.isStatic = true;
-            rigidbody.constraints = RigidbodyConstraints.FreezeAll;
             Die();
         }
     }
 
     public void Die()
     {
+
+        dead = true;
+        animator.Play("Daed");
+        this.gameObject.isStatic = true;
+        rigidbody.constraints = RigidbodyConstraints.FreezeAll;
         Destroy(this.gameObject, 10f);
     }
 }
