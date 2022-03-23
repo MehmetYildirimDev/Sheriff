@@ -4,7 +4,7 @@ using UnityEngine;
 using UnityEngine.AI;
 using UnityEngine.UI;
 
-public class BossController : MonoBehaviour
+public class NinjaController : MonoBehaviour
 {
     private PlayerMovement playerScript;
 
@@ -14,24 +14,21 @@ public class BossController : MonoBehaviour
     private GameObject target;
     private float mesafa;
 
+
     EnemyManager enemyManager;
-    //EnemyManager enemyManager;
+
 
     private void Awake()
     {
-        enemyManager = GetComponent<EnemyManager>();
         target = GameObject.Find("Hero");
-
-        agent = GetComponent<NavMeshAgent>();
+        enemyManager = GetComponent<EnemyManager>();
         animator = GetComponent<Animator>();
-        
+        agent = GetComponent<NavMeshAgent>();
         //  target = GameObject.Find("Player");
     }
 
-
     private void Update()
     {
-        
         if (!enemyManager.dead)
         {
             agent.destination = target.transform.position;
@@ -61,7 +58,6 @@ public class BossController : MonoBehaviour
             //   collision.gameObject.transform.GetChild(0).GetComponent<Camera>().
         }
     }
-
 
 
 }
