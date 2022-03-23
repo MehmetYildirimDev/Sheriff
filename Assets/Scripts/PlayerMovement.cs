@@ -16,10 +16,18 @@ public class PlayerMovement : MonoBehaviour
 
     bool isGrounded;
 
+    [Header("Foot Audio")]
+    AudioSource audioSource;
+    public float timeBetweenSteps;
+    private float timer;
+    private bool isMoving;
+    public AudioClip[] stepSounds;
+
+
     // Start is called before the first frame update
-    void Start()
+    private void Awake()
     {
-        
+        audioSource = GetComponent<AudioSource>();
     }
 
     // Update is called once per frame
@@ -38,6 +46,37 @@ public class PlayerMovement : MonoBehaviour
         Vector3 move = transform.right * x + transform.forward * z;
 
         controller.Move(move*speed*Time.deltaTime);
+
+        #region FootSteps
+        if (x !=0 || z !=0)
+        {
+            isMoving = true;
+        }
+        else
+        {
+            isMoving = false;
+        }
+
+        if (isMoving)
+        {
+            timer -= Time.deltaTime;
+            if (timer<=0)
+            {
+                timer = timeBetweenSteps;
+
+           //     audioSource.clip = stepSounds[Random.Range(0, stepSounds.Length - 1)];
+                audioSource.Play();
+           //     audioSource.volume = Random.Range(.5f, 1f);
+            }
+        }
+        else
+        {
+            audioSource.Stop();
+            timer = timeBetweenSteps; 
+        }
+
+        #endregion
+
 
         if (Input.GetButtonDown("Jump") && isGrounded) 
         {
