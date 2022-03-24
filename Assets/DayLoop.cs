@@ -15,7 +15,7 @@ public class DayLoop : MonoBehaviour
     void Update()
     {
         transform.RotateAround(transform.position, Vector3.right, 2f * Time.deltaTime);
-
+       
         //bir nokta etrafýnda döndürmek için kullanýlýr bu fonksiyon
         //noktayý olusturduk ilk parametrede sonra yönu sectik , zamaný seçtik 
     }
