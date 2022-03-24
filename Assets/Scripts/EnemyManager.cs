@@ -32,6 +32,7 @@ public class EnemyManager : MonoBehaviour
         dead = true;
         animator.Play("Daed");
         this.gameObject.isStatic = true;
+        this.gameObject.GetComponent<Collider>().enabled = false;
         rigidbody.constraints = RigidbodyConstraints.FreezeAll;
         Destroy(this.gameObject, 10f);
     }
