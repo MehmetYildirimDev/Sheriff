@@ -1,3 +1,4 @@
+using System.Collections;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -11,7 +12,7 @@ public class GunScript : MonoBehaviour
 
     public float damage = 10f;
     public float range = 100f;
-    public float fireRate = 15f;
+    public float fireRate = 10f;
 
     public Animator animator;
 
@@ -32,10 +33,11 @@ public class GunScript : MonoBehaviour
     public int clipbullet = 30;
     public int M4BULLET = 30;
     public int empty = 0;
-    public float ReloadTime = 2;
+    public float ReloadTime = 1.17f;
     public Text clip;
     public Text TotalAmmo;
-    private bool canShoot = true;
+    private bool isReloding = false;
+
 
 
     private void Awake()
@@ -50,41 +52,39 @@ public class GunScript : MonoBehaviour
 
     void Update()
     {
+        if (isReloding)
+        {
+            return;
+        }
+
+
         if (Totalbullet < 0)
         {
             canShoot = false;
         }
 
+        if (Input.GetKeyDown(KeyCode.R) || clipbullet < 0 && Totalbullet > 0)//mermi bittiðinde sürekli animasyona girecek
+        {
+            StartCoroutine(ReloadClip());
+            return;
+        }
+
+
         clip.text = clipbullet + "/";
 
-        if (Input.GetButton("Fire1") && Time.time >= nextTimetoFire && canShoot)
+        if (Input.GetButton("Fire1") && Time.time >= nextTimetoFire)
         {
-
-
             nextTimetoFire = Time.time + 1f / fireRate;
-            if (clipbullet > 0)
-            {
-                Shoot();
-            }
-            else
-            {
-                ReloadClip();
-            }
-
+            Shoot();
         }
 
-        if (Input.GetKeyDown(KeyCode.R))
-        {
-            ReloadClip();
-        }
+
 
     }
 
     void Shoot()
     {
-        //        Totalbullet -= 1;
         clipbullet -= 1;
-
 
         muzzleFlash.Play();
 
@@ -95,17 +95,12 @@ public class GunScript : MonoBehaviour
         if (Physics.Raycast(FpsCamera.transform.position, FpsCamera.transform.forward, out hit, range))
         {
             Debug.Log(hit.transform.name);
-            //BUG
-
-            //            Damage Target = hit.transform.GetComponent<Damage>();
-
 
             EnemyManager enemy = hit.transform.GetComponent<EnemyManager>();
             if (enemy != null)
             {
                 enemy.DamageTake(damage);
             }
-
 
 
             if (hit.rigidbody != null)
@@ -118,9 +113,17 @@ public class GunScript : MonoBehaviour
         }
     }
 
-    void ReloadClip()
+    IEnumerator ReloadClip()
     {
-        //25 mermi var ve totalde 10 mermi kaaldý 
+        isReloding = true;
+
+        animator.Play("ReloadAnim");
+
+        audioSource.PlayOneShot(audios[1]);
+
+
+        yield return new WaitForSeconds(ReloadTime);
+
         if (Totalbullet > 0)
         {
             empty = M4BULLET - clipbullet;
@@ -133,10 +136,9 @@ public class GunScript : MonoBehaviour
             clipbullet += empty;
         }
 
-
-
-
         TotalAmmo.text = Totalbullet.ToString();
+
+        isReloding = false;
     }
 
 
