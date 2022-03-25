@@ -50,15 +50,4 @@ public class KillerController : MonoBehaviour
 
     }
 
-    private void OnCollisionEnter(Collision collision)
-    {
-        if (collision.gameObject.CompareTag("Player"))
-        {
-            //Destroy(this.gameObject);
-            Debug.Log("HASAR AL");
-            //   collision.gameObject.transform.GetChild(0).GetComponent<Camera>().
-        }
-    }
-
-
 }

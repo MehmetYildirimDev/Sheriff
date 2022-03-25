@@ -4,6 +4,7 @@ using UnityEngine;
 
 public class EnemyManager : MonoBehaviour
 {
+
     public float Healt = 50f;
 
     public bool dead=false;
@@ -28,7 +29,7 @@ public class EnemyManager : MonoBehaviour
 
     public void Die()
     {
-
+        ScoreHealt.Score++;
         dead = true;
         animator.Play("Daed");
         this.gameObject.isStatic = true;
@@ -36,4 +37,21 @@ public class EnemyManager : MonoBehaviour
         rigidbody.constraints = RigidbodyConstraints.FreezeAll;
         Destroy(this.gameObject, 10f);
     }
+
+    private void OnCollisionEnter(Collision collision)
+    {
+        if (collision.gameObject.CompareTag("Player"))
+        {
+            //Destroy(this.gameObject);
+            Debug.Log("HASAR AL");
+            ScoreHealt.Healt -= 20;
+            if (ScoreHealt.Healt<=0)
+            {
+                Time.timeScale = 0;
+                Debug.Log("Oyun bitti");
+                // GameOver();
+            }
+        }
+    }
+
 }
