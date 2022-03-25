@@ -37,6 +37,8 @@ public class GunScript : MonoBehaviour
     public Text clip;
     public Text TotalAmmo;
     private bool isReloding = false;
+    private bool canShoot = true;
+
 
 
 
@@ -72,7 +74,7 @@ public class GunScript : MonoBehaviour
 
         clip.text = clipbullet + "/";
 
-        if (Input.GetButton("Fire1") && Time.time >= nextTimetoFire)
+        if (Input.GetButton("Fire1") && Time.time >= nextTimetoFire && canShoot)
         {
             nextTimetoFire = Time.time + 1f / fireRate;
             Shoot();
