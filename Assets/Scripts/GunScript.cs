@@ -54,34 +54,33 @@ public class GunScript : MonoBehaviour
 
     void Update()
     {
+        clip.text = clipbullet + "/";
+
         if (isReloding)
         {
-            return;
+            return; //updateden çýkarýyor -> yeni framede yeniden çalýþýyor
         }
 
-
-        if (Totalbullet < 0)
-        {
-            canShoot = false;
-        }
-
-        if (Input.GetKeyDown(KeyCode.R) || clipbullet < 0 && Totalbullet > 0)//mermi bittiðinde sürekli animasyona girecek
+        if (Input.GetKeyDown(KeyCode.R) || clipbullet <= 0 && Totalbullet > 0)//mermi bittiðinde sürekli animasyona girecek
         {
             StartCoroutine(ReloadClip());
             return;
         }
 
-
-        clip.text = clipbullet + "/";
+        if (Totalbullet < 0 || clipbullet <= 0)
+        {
+            canShoot = false;
+        }
+        else
+        {
+            canShoot = true;
+        }
 
         if (Input.GetButton("Fire1") && Time.time >= nextTimetoFire && canShoot)
         {
             nextTimetoFire = Time.time + 1f / fireRate;
             Shoot();
         }
-
-
-
     }
 
     void Shoot()
@@ -142,7 +141,5 @@ public class GunScript : MonoBehaviour
 
         isReloding = false;
     }
-
-
 
 }
