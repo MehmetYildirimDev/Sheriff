@@ -101,6 +101,7 @@ public class GunScript : MonoBehaviour
             if (enemy != null)
             {
                 enemy.DamageTake(damage);
+                //audioSource.Play(audios[]);
             }
 
 

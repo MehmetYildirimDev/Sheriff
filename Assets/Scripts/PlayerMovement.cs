@@ -18,10 +18,11 @@ public class PlayerMovement : MonoBehaviour
 
     [Header("Foot Audio")]
     AudioSource audioSource;
+
     public float timeBetweenSteps;
     private float timer;
     private bool isMoving;
-    public AudioClip[] stepSounds;
+    public AudioClip[] Sounds;
 
 
     // Start is called before the first frame update
@@ -35,7 +36,7 @@ public class PlayerMovement : MonoBehaviour
     {
         isGrounded = Physics.CheckSphere(groundCheck.position, groundDistance, groundMask);
 
-        if (isGrounded && velocity.y<0)
+        if (isGrounded && velocity.y < 0)
         {
             velocity.y = -2f;
         }
@@ -45,10 +46,10 @@ public class PlayerMovement : MonoBehaviour
 
         Vector3 move = transform.right * x + transform.forward * z;
 
-        controller.Move(move*speed*Time.deltaTime);
+        controller.Move(move * speed * Time.deltaTime);
 
         #region FootSteps
-        if (x !=0 || z !=0)
+        if (x != 0 || z != 0)
         {
             isMoving = true;
         }
@@ -60,32 +61,66 @@ public class PlayerMovement : MonoBehaviour
         if (isMoving)
         {
             timer -= Time.deltaTime;
-            if (timer<=0)
+            if (timer <= 0)
             {
                 timer = timeBetweenSteps;
 
-           //     audioSource.clip = stepSounds[Random.Range(0, stepSounds.Length - 1)];
+                //     audioSource.clip = stepSounds[Random.Range(0, stepSounds.Length - 1)];
                 audioSource.Play();
-           //     audioSource.volume = Random.Range(.5f, 1f);
+                //     audioSource.volume = Random.Range(.5f, 1f);
             }
         }
         else
         {
             audioSource.Stop();
-            timer = timeBetweenSteps; 
+            timer = timeBetweenSteps;
         }
 
         #endregion
 
 
-        if (Input.GetButtonDown("Jump") && isGrounded) 
+        if (Input.GetButtonDown("Jump") && isGrounded)
         {
             velocity.y = Mathf.Sqrt(JumpHeight * -2f * gravity);
+            audioSource.PlayOneShot(Sounds[1]);
         }
-        
 
-        velocity.y += gravity*Time.deltaTime;
+
+        velocity.y += gravity * Time.deltaTime;
 
         controller.Move(velocity * Time.deltaTime);
+
+
+
     }
+
+
+
+    private void OnCollisionEnter(Collision collision)
+    {
+        if (collision.gameObject.CompareTag("enemy"))
+        {
+
+            audioSource.PlayOneShot(Sounds[3]);
+            ScoreHealt.Healt -= 20;
+
+
+            if (ScoreHealt.Healt <= 0)
+            {
+                audioSource.Stop();//adým sesi gelmeemsi için durdurdum
+                audioSource.PlayOneShot(Sounds[0]);
+
+                Time.timeScale = 0;
+                Debug.Log("Oyun bitti");
+                // GameOver();
+            }
+        }
+    }
+
+    public void ScorePlus()
+    {
+        Debug.Log("ScorePlusa giriyoz");
+        audioSource.PlayOneShot(Sounds[2]);
+    }
+
 }

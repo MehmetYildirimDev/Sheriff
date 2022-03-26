@@ -11,10 +11,27 @@ public class ScoreHealt : MonoBehaviour
     public static int Score = 0;
     public Text ScoreText;
 
+    AudioSource audioSource;
+    public AudioClip[] audioClips;
+
+    private void Start()
+    {
+        audioSource = this.gameObject.GetComponent<AudioSource>();
+    }
+
+
+
     private void Update()
     {
 
         HealtText.text = Healt.ToString();
         ScoreText.text = Score.ToString();
+
     }
+    public void ScorePlus()
+    {
+        Debug.Log("ScorePlusa giriyoz");
+        audioSource.PlayOneShot(audioClips[0]);
+    }
+
 }
