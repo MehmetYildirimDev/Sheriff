@@ -5,12 +5,16 @@ using UnityEngine;
 public class Drop : MonoBehaviour
 {
     public GunScript gunScript;
-    
+
+    AudioSource audioSource;
+    public AudioClip HealSound;
+
+    Animator animator;
 
     private void Start()
     {
-
-        
+        audioSource = GetComponent<AudioSource>();
+        animator = GetComponent<Animator>();
 
     }
 
@@ -23,7 +27,10 @@ public class Drop : MonoBehaviour
     {
         if (other.gameObject.CompareTag("Player"))
         {
-            Debug.Log("burada");
+            audioSource.PlayOneShot(HealSound);
+            animator.Play("DestroyAnim");
+         
+
             gunScript.Totalbullet += 30;
 
             if (ScoreHealt.Healt<100)
@@ -33,7 +40,7 @@ public class Drop : MonoBehaviour
             }
 
             gunScript.TotalAmmo.text = gunScript.Totalbullet.ToString();
-            Destroy(this.gameObject);
+            Destroy(this.gameObject,2f);
 
             
         }
