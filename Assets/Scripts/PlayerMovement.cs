@@ -95,15 +95,14 @@ public class PlayerMovement : MonoBehaviour
     }
 
 
-
-    private void OnCollisionEnter(Collision collision)
+    private void OnTriggerEnter(Collider other)
     {
-        if (collision.gameObject.CompareTag("enemy"))
+        if (other.gameObject.CompareTag("sword"))
         {
+            Debug.Log("Kýlýca  geldik");
 
             audioSource.PlayOneShot(Sounds[3]);
             ScoreHealt.Healt -= 20;
-
 
             if (ScoreHealt.Healt <= 0)
             {
@@ -117,10 +116,15 @@ public class PlayerMovement : MonoBehaviour
         }
     }
 
-    public void ScorePlus()
+    private void OnCollisionEnter(Collision collision)
     {
-        Debug.Log("ScorePlusa giriyoz");
-        audioSource.PlayOneShot(Sounds[2]);
+        if (collision.gameObject.CompareTag("enemy"))
+        {
+            //ToDo ; 
+
+        }
     }
+
+
 
 }

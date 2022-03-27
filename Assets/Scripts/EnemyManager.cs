@@ -12,10 +12,16 @@ public class EnemyManager : MonoBehaviour
     private Animator animator;
     private Rigidbody rigidbody;
 
+    ScoreHealt scoreHealt;
+    
+
+    
+
     private void Start()
     {
         animator = GetComponent<Animator>();
         rigidbody = GetComponent<Rigidbody>();
+        scoreHealt = GameObject.Find("GameManager").GetComponent<ScoreHealt>();
     }
 
     public void DamageTake(float amount)
@@ -30,28 +36,15 @@ public class EnemyManager : MonoBehaviour
     public void Die()
     {
         ScoreHealt.Score++;
+        scoreHealt.ScorePlus();
+
         dead = true;
         animator.Play("Daed");
         this.gameObject.isStatic = true;
         this.gameObject.GetComponent<Collider>().enabled = false;
         rigidbody.constraints = RigidbodyConstraints.FreezeAll;
-        Destroy(this.gameObject, 10f);
+        Destroy(this.gameObject, 6f);
     }
 
-    private void OnCollisionEnter(Collision collision)
-    {
-        if (collision.gameObject.CompareTag("Player"))
-        {
-            //Destroy(this.gameObject);
-            Debug.Log("HASAR AL");
-            ScoreHealt.Healt -= 20;
-            if (ScoreHealt.Healt<=0)
-            {
-                Time.timeScale = 0;
-                Debug.Log("Oyun bitti");
-                // GameOver();
-            }
-        }
-    }
 
 }
