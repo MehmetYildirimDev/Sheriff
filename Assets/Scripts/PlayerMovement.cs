@@ -24,8 +24,6 @@ public class PlayerMovement : MonoBehaviour
     private bool isMoving;
     public AudioClip[] Sounds;
 
-
-    // Start is called before the first frame update
     private void Awake()
     {
         audioSource = GetComponent<AudioSource>();
@@ -78,20 +76,15 @@ public class PlayerMovement : MonoBehaviour
 
         #endregion
 
-
         if (Input.GetButtonDown("Jump") && isGrounded)
         {
             velocity.y = Mathf.Sqrt(JumpHeight * -2f * gravity);
             audioSource.PlayOneShot(Sounds[1]);
         }
 
-
         velocity.y += gravity * Time.deltaTime;
 
         controller.Move(velocity * Time.deltaTime);
-
-
-
     }
 
 
@@ -106,12 +99,7 @@ public class PlayerMovement : MonoBehaviour
 
             if (ScoreHealt.Healt <= 0)
             {
-                audioSource.Stop();//adým sesi gelmeemsi için durdurdum
-                audioSource.PlayOneShot(Sounds[0]);
-
-                Time.timeScale = 0;
-                Debug.Log("Oyun bitti");
-                // GameOver();
+                GameOver();
             }
         }
     }
@@ -125,6 +113,15 @@ public class PlayerMovement : MonoBehaviour
         }
     }
 
+    public void GameOver()
+    {
+        audioSource.Stop();//adým sesi gelmeemsi için durdurdum
+        audioSource.PlayOneShot(Sounds[0]);
+
+        Time.timeScale = 0;
+        Debug.Log("Oyun bitti");
+        // GameOver();
+    }
 
 
 }

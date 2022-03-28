@@ -26,11 +26,33 @@ public class EnemyManager : MonoBehaviour
 
     public void DamageTake(float amount)
     {
-        Healt -= amount;
-        if (Healt <= 0f)
+        if (this.gameObject.name.Equals("Boss"))
         {
-            Die();
+            Healt -= amount/2;
+            if (Healt <= 0f)
+            {
+                Die();
+            }
         }
+
+        if (this.gameObject.name.Equals("killer"))
+        {
+            Healt -= amount;
+            if (Healt <= 0f)
+            {
+                Die();
+            }
+        }
+
+        if (this.gameObject.name.Equals("ninja"))
+        {
+            Healt -= amount;
+            if (Healt <= 0f)
+            {
+                Die();
+            }
+        }
+        
     }
 
     public void Die()
