@@ -25,7 +25,6 @@ public class BossController : MonoBehaviour
         agent = GetComponent<NavMeshAgent>();
         animator = GetComponent<Animator>();
         
-        //  target = GameObject.Find("Player");
     }
 
 
@@ -38,16 +37,13 @@ public class BossController : MonoBehaviour
         }
         mesafa = Vector3.Distance(this.transform.position, target.transform.position);
 
-        if (mesafa < 5 && !enemyManager.dead)
+        if (mesafa < 3 && !enemyManager.dead)
         {
-            animator.SetBool("Attack2", true);
-
+            animator.SetBool("attack", true);
         }
-        else if (mesafa > 5 && !enemyManager.dead)
-        {
-
-            animator.Play("runanim");
-            animator.SetBool("Attack2", false);
+        else if (mesafa > 3 && !enemyManager.dead)
+        {        
+            animator.SetBool("attack", false);
         }
 
     }
