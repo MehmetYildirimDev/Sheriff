@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class PlayerMovement : MonoBehaviour
 {
@@ -23,6 +24,7 @@ public class PlayerMovement : MonoBehaviour
     private float timer;
     private bool isMoving;
     public AudioClip[] Sounds;
+
 
     private void Awake()
     {
@@ -85,17 +87,28 @@ public class PlayerMovement : MonoBehaviour
         velocity.y += gravity * Time.deltaTime;
 
         controller.Move(velocity * Time.deltaTime);
+
+
+        #region DamageTake
+
+
+
+
+        #endregion
+
+
+
     }
 
 
     private void OnTriggerEnter(Collider other)
     {
-        if (other.gameObject.CompareTag("sword"))
+        if (other.gameObject.CompareTag("sword"))//Hasar Aldým
         {
             Debug.Log("Kýlýca  geldik");
 
-            audioSource.PlayOneShot(Sounds[3]);
-            ScoreHealt.Healt -= 20;
+            TakeDamage();
+
 
             if (ScoreHealt.Healt <= 0)
             {
@@ -118,10 +131,15 @@ public class PlayerMovement : MonoBehaviour
         audioSource.Stop();//adým sesi gelmeemsi için durdurdum
         audioSource.PlayOneShot(Sounds[0]);
 
-        Time.timeScale = 0;
+        // Time.timeScale = 0;
         Debug.Log("Oyun bitti");
         // GameOver();
     }
 
+    public void TakeDamage()
+    {
+        audioSource.PlayOneShot(Sounds[3]);
+        ScoreHealt.Healt -= 20;
+    }
 
 }
