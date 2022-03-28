@@ -1,11 +1,11 @@
 fileFormatVersion: 2
-guid: 6844bb3d9b5beba43801a0c91748504f
+guid: f0fc9f401bafc0049a68706ad35b6700
 ModelImporter:
   serializedVersion: 20200
   internalIDToNameTable:
   - first:
       74: -203655887218126122
-    second: mixamo.com
+    second: SLow
   externalObjects: {}
   materials:
     materialImportMode: 2
@@ -35,11 +35,11 @@ ModelImporter:
     extraUserProperties: []
     clipAnimations:
     - serializedVersion: 16
-      name: mixamo.com
+      name: SLow
       takeName: mixamo.com
       internalID: 0
       firstFrame: 0
-      lastFrame: 79
+      lastFrame: 24
       wrapMode: 0
       orientationOffsetY: 0
       level: 0
@@ -609,7 +609,8 @@ ModelImporter:
     hasTranslationDoF: 0
     hasExtraRoot: 1
     skeletonHasParents: 1
-  lastHumanDescriptionAvatarSource: {fileID: 9000000, guid: 472d3e23e1bc331469f145604bd05ba6, type: 3}
+  lastHumanDescriptionAvatarSource: {fileID: 9000000, guid: 472d3e23e1bc331469f145604bd05ba6,
+    type: 3}
   autoGenerateAvatarMappingIfUnspecified: 1
   animationType: 3
   humanoidOversampling: 1

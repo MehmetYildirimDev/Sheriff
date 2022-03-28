@@ -1,11 +1,11 @@
 fileFormatVersion: 2
-guid: 5fa96e5c27164e34ea0504319978368e
+guid: f59f0b0d90498df41b1c555b97b4e573
 ModelImporter:
   serializedVersion: 20200
   internalIDToNameTable:
   - first:
       74: -203655887218126122
-    second: dancing twerk
+    second: RunANimFast
   externalObjects: {}
   materials:
     materialImportMode: 2
@@ -35,11 +35,11 @@ ModelImporter:
     extraUserProperties: []
     clipAnimations:
     - serializedVersion: 16
-      name: dancing twerk
+      name: RunANimFast
       takeName: mixamo.com
       internalID: 0
       firstFrame: 0
-      lastFrame: 456
+      lastFrame: 24
       wrapMode: 0
       orientationOffsetY: 0
       level: 0
