@@ -38,14 +38,12 @@ public class KillerController : MonoBehaviour
 
         if (mesafa < 5 && !enemyManager.dead)
         {
-            animator.SetBool("Attack2", true);
+            animator.SetBool("Attack", true);
 
         }
         else if (mesafa > 5 && !enemyManager.dead)
         {
-
-            animator.Play("runanim");
-            animator.SetBool("Attack2", false);
+            animator.SetBool("Attack", false);
         }
 
     }

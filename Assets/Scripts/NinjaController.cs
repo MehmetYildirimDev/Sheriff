@@ -35,6 +35,9 @@ public class NinjaController : MonoBehaviour
         }
         mesafa = Vector3.Distance(this.transform.position, target.transform.position);
 
+
+        /*
+
         if (mesafa < 5 && !enemyManager.dead)
         {
             animator.SetBool("Attack2", true);
@@ -46,7 +49,7 @@ public class NinjaController : MonoBehaviour
             animator.Play("runanim");
             animator.SetBool("Attack2", false);
         }
-
+         */
     }
 
 }
