@@ -11,6 +11,9 @@ public class ScoreHealt : MonoBehaviour
     public static int Score = 0;
     public Text ScoreText;
 
+    public static int Gold;
+    public Text GoldText;
+
     AudioSource audioSource;
     public AudioClip[] audioClips;
 
@@ -26,12 +29,25 @@ public class ScoreHealt : MonoBehaviour
 
         HealtText.text = Healt.ToString();
         ScoreText.text = Score.ToString();
+        GoldText.text = Gold.ToString();
 
     }
     public void ScorePlus()
     {
         Debug.Log("ScorePlusa giriyoz");
         audioSource.PlayOneShot(audioClips[0]);
+    }
+
+    public void GotGold()
+    {
+        Debug.Log("altýný aldý");
+        audioSource.PlayOneShot(audioClips[1]);
+    }
+
+    public void LeaveGold()
+    {
+        Debug.Log("altýný exite býraktý");
+        audioSource.PlayOneShot(audioClips[2]);
     }
 
 }

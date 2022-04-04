@@ -12,28 +12,47 @@ public class NinjaController : MonoBehaviour
     private Animator animator;
     private Rigidbody rigidbody;
     private GameObject target;
+    private GameObject Exit;
     private float mesafa;
 
 
     EnemyManager enemyManager;
 
+     public ScoreHealt scoreHealt;
 
     private void Awake()
     {
-        target = GameObject.Find("Hero");
+        target = GameObject.Find("Mine");
+        Exit = GameObject.Find("ExitPoint");
         enemyManager = GetComponent<EnemyManager>();
         animator = GetComponent<Animator>();
         agent = GetComponent<NavMeshAgent>();
+        scoreHealt = GameObject.Find("GameManager").GetComponent<ScoreHealt>();
         //  target = GameObject.Find("Player");
+    }
+
+    private void Start()
+    {
+        ScoreHealt.Gold = target.transform.childCount;
+
+        agent.destination = target.transform.GetChild(0).position;
+
+
     }
 
     private void Update()
     {
-        if (!enemyManager.dead)
+        if (enemyManager.dead)
         {
-            agent.destination = target.transform.position;
+            agent.isStopped=true;
+            gameObject.transform.GetChild(2).gameObject.SetActive(false);
         }
-        mesafa = Vector3.Distance(this.transform.position, target.transform.position);
+        
+        //if (!enemyManager.dead)
+        //{
+        //    agent.destination = target.transform.position;
+        //}
+        //  mesafa = Vector3.Distance(this.transform.position, target.transform.position);
 
 
         /*
@@ -50,6 +69,42 @@ public class NinjaController : MonoBehaviour
             animator.SetBool("Attack2", false);
         }
          */
+    }
+
+    private void OnTriggerEnter(Collider other)
+    {
+        if (other.gameObject.CompareTag("Gold"))
+        {
+            Destroy(other.gameObject);
+            //burada o objeyi yok ediyor altta tekrar atýyoruz
+            agent.destination = Exit.transform.position;
+
+            scoreHealt.GotGold();
+
+            transform.GetChild(2).gameObject.SetActive(true);
+            
+        }
+
+
+        if (other.gameObject.CompareTag("Exit"))
+        {
+            if (target.transform.childCount > 0)
+            {
+                agent.destination = target.transform.GetChild(0).position;
+                transform.GetChild(2).gameObject.SetActive(false);
+
+                scoreHealt.LeaveGold();
+                ScoreHealt.Gold--;
+            }
+            else
+            {
+                Debug.Log("Oyun bitti");
+                Time.timeScale = 0;
+            }
+        }
+
+
+
     }
 
 }
